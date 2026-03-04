@@ -374,3 +374,25 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ===== ANIMASI SCROLL UNTUK STRUKTUR ORGANISASI =====
+function setupOrgSectionAnimation() {
+    const orgSection = document.querySelector('.org-section');
+    
+    if (!orgSection) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('org-show');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+    observer.observe(orgSection);
+}
+
+window.addEventListener('load', function() {
+    setupOrgSectionAnimation();
+});
